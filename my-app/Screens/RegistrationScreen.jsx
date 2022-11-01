@@ -7,6 +7,8 @@ import {
   Platform,
   TouchableOpacity,
   Dimensions,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from "react-native";
 import React, { useState, useEffect, useCallback } from "react";
 import * as Font from "expo-font";
@@ -19,7 +21,7 @@ export default function RegistrationScreen({ onSubmitHandler }) {
   const [password, setPassword] = useState("");
   const [isReady, setIsReady] = useState(false);
   const [dimensions, setdimensions] = useState(
-    Dimensions.get("window").width - 20 * 2
+    Dimensions.get("window").width - 40 * 2
   );
 
   useEffect(() => {
@@ -47,7 +49,7 @@ export default function RegistrationScreen({ onSubmitHandler }) {
 
   useEffect(() => {
     const onChange = () => {
-      const width = Dimensions.get("window").width - 20 * 2;
+      const width = Dimensions.get("window").width - 40 * 2;
       setdimensions(width);
     };
     Dimensions.addEventListener("change", onChange);
@@ -61,38 +63,41 @@ export default function RegistrationScreen({ onSubmitHandler }) {
 
   return (
     isReady && (
-      <View
-        style={{ ...styles.container, width: dimensions }}
-        onLayout={onLayoutRootView}
-      >
-        <Text style={styles.title}>Please, sign up!</Text>
-        <KeyboardAvoidingView
-          behavior={Platform.OS == "ios" ? "padding" : "height"}
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View
+          style={{ ...styles.container, width: dimensions }}
+          onLayout={onLayoutRootView}
         >
-          <TextInput
-            value={name}
-            onChangeText={nameHandler}
-            placeholder="Username"
-            style={styles.input}
-            placeholderTextColor={`#f0f8ff`}
-          />
-          <TextInput
-            value={password}
-            onChangeText={passwordHandler}
-            placeholder="Password"
-            secureTextEntry={true}
-            style={styles.input}
-            placeholderTextColor={`#f0f8ff`}
-          />
-          <TouchableOpacity
-            activeOpacity={0.8}
-            style={styles.btn}
-            onPress={onSubmitHandler(name, password)}
+          <Text style={styles.title}>Please, sign up!</Text>
+          <KeyboardAvoidingView
+            style={{ width: "100%" }}
+            behavior={Platform.OS == "ios" ? "padding" : "height"}
           >
-            <Text style={styles.btnText}>Sign Up</Text>
-          </TouchableOpacity>
-        </KeyboardAvoidingView>
-      </View>
+            <TextInput
+              value={name}
+              onChangeText={nameHandler}
+              placeholder="Username"
+              style={styles.input}
+              placeholderTextColor={`#f0f8ff`}
+            />
+            <TextInput
+              value={password}
+              onChangeText={passwordHandler}
+              placeholder="Password"
+              secureTextEntry={true}
+              style={styles.input}
+              placeholderTextColor={`#f0f8ff`}
+            />
+            <TouchableOpacity
+              activeOpacity={0.8}
+              style={styles.btn}
+              onPress={() => onSubmitHandler(name, password)}
+            >
+              <Text style={styles.btnText}>Sign Up</Text>
+            </TouchableOpacity>
+          </KeyboardAvoidingView>
+        </View>
+      </TouchableWithoutFeedback>
     )
   );
 }
@@ -110,7 +115,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   input: {
-    width: 200,
+    width: "100%",
     height: 44,
     padding: 10,
     borderWidth: 1,
@@ -130,6 +135,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     color: `#f0f8ff`,
     backgroundColor: `#4b0082`,
+    marginHorizontal: 40,
   },
   btnText: {
     color: `#f0f8ff`,

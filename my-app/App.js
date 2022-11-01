@@ -1,4 +1,5 @@
 import RegistrationScreen from "./Screens/RegistrationScreen";
+import LoginScreen from "./Screens/LoginScreen";
 import { useState } from "react";
 import {
   ImageBackground,
@@ -7,6 +8,9 @@ import {
   Keyboard,
   Switch,
 } from "react-native";
+import { LogBox } from "react-native";
+
+LogBox.ignoreLogs(["EventEmitter.removeListener"]);
 
 export default function App() {
   const [isRegistered, setIsRegistered] = useState(false);
@@ -29,6 +33,7 @@ export default function App() {
         style={styles.bg}
       >
         <Switch
+          style={styles.switch}
           onValueChange={toggleSwitch}
           value={isRegistered}
           trackColor={{ false: "#767577", true: "#81b0ff" }}
@@ -45,8 +50,15 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
+  switch: {
+    position: "absolute",
+    top: 20,
+    right: 30,
+    zIndex: 100,
+  },
   bg: {
     flex: 1,
     resizeMode: "cover",
+    alignItems: "center",
   },
 });
