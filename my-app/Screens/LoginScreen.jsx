@@ -9,6 +9,7 @@ import {
   Dimensions,
   TouchableWithoutFeedback,
   Keyboard,
+  ImageBackground,
 } from "react-native";
 import React, { useState, useEffect, useCallback } from "react";
 import * as Font from "expo-font";
@@ -16,7 +17,7 @@ import * as SplashScreen from "expo-splash-screen";
 
 SplashScreen.preventAutoHideAsync();
 
-export default function LoginScreen({ onSubmitHandler }) {
+export default function LoginScreen({ onSubmitHandler, navigation }) {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [isReady, setIsReady] = useState(false);
@@ -64,41 +65,53 @@ export default function LoginScreen({ onSubmitHandler }) {
   return (
     isReady && (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View
-          style={{ ...styles.container, width: dimensions }}
-          onLayout={onLayoutRootView}
+        <ImageBackground
+          source={require("./assets/background.jpg")}
+          style={styles.bg}
         >
-          <Text style={styles.title}>
-            Please, sign in if you already have account!
-          </Text>
-          <KeyboardAvoidingView
-            style={{ width: "100%" }}
-            behavior={Platform.OS == "ios" ? "padding" : "height"}
+          <Switch
+            style={styles.switch}
+            onValueChange={toggleSwitch}
+            value={isRegistered}
+            trackColor={{ false: "#767577", true: "#81b0ff" }}
+            thumbColor={isRegistered ? "#f5dd4b" : "#f4f3f4"}
+          />
+          <View
+            style={{ ...styles.container, width: dimensions }}
+            onLayout={onLayoutRootView}
           >
-            <TextInput
-              value={name}
-              onChangeText={nameHandler}
-              placeholder="Username"
-              style={styles.input}
-              placeholderTextColor={`#f0f8ff`}
-            />
-            <TextInput
-              value={password}
-              onChangeText={passwordHandler}
-              placeholder="Password"
-              secureTextEntry={true}
-              style={styles.input}
-              placeholderTextColor={`#f0f8ff`}
-            />
-            <TouchableOpacity
-              activeOpacity={0.8}
-              style={styles.btn}
-              onPress={() => onSubmitHandler(name, password)}
+            <Text style={styles.title}>
+              Please, sign in if you already have account!
+            </Text>
+            <KeyboardAvoidingView
+              style={{ width: "100%" }}
+              behavior={Platform.OS == "ios" ? "padding" : "height"}
             >
-              <Text style={styles.btnText}>Sign In</Text>
-            </TouchableOpacity>
-          </KeyboardAvoidingView>
-        </View>
+              <TextInput
+                value={name}
+                onChangeText={nameHandler}
+                placeholder="Username"
+                style={styles.input}
+                placeholderTextColor={`#f0f8ff`}
+              />
+              <TextInput
+                value={password}
+                onChangeText={passwordHandler}
+                placeholder="Password"
+                secureTextEntry={true}
+                style={styles.input}
+                placeholderTextColor={`#f0f8ff`}
+              />
+              <TouchableOpacity
+                activeOpacity={0.8}
+                style={styles.btn}
+                onPress={() => onSubmitHandler(name, password)}
+              >
+                <Text style={styles.btnText}>Sign In</Text>
+              </TouchableOpacity>
+            </KeyboardAvoidingView>
+          </View>
+        </ImageBackground>
       </TouchableWithoutFeedback>
     )
   );
