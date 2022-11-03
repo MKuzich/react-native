@@ -17,7 +17,7 @@ import * as SplashScreen from "expo-splash-screen";
 
 SplashScreen.preventAutoHideAsync();
 
-export default function LoginScreen({ onSubmitHandler, navigation }) {
+export default function RegistrationScreen({ navigation }) {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [isReady, setIsReady] = useState(false);
@@ -59,6 +59,11 @@ export default function LoginScreen({ onSubmitHandler, navigation }) {
     };
   }, []);
 
+  const onSubmitHandler = (name, password) => {
+    console.log(`Name: ${name}, password: ${password}`);
+    Keyboard.dismiss();
+  };
+
   const nameHandler = (text) => setName(text);
   const passwordHandler = (text) => setPassword(text);
 
@@ -66,23 +71,14 @@ export default function LoginScreen({ onSubmitHandler, navigation }) {
     isReady && (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <ImageBackground
-          source={require("./assets/background.jpg")}
+          source={require("../../assets/background.jpg")}
           style={styles.bg}
         >
-          <Switch
-            style={styles.switch}
-            onValueChange={toggleSwitch}
-            value={isRegistered}
-            trackColor={{ false: "#767577", true: "#81b0ff" }}
-            thumbColor={isRegistered ? "#f5dd4b" : "#f4f3f4"}
-          />
           <View
             style={{ ...styles.container, width: dimensions }}
             onLayout={onLayoutRootView}
           >
-            <Text style={styles.title}>
-              Please, sign in if you already have account!
-            </Text>
+            <Text style={styles.title}>Please, sign up!</Text>
             <KeyboardAvoidingView
               style={{ width: "100%" }}
               behavior={Platform.OS == "ios" ? "padding" : "height"}
@@ -107,7 +103,13 @@ export default function LoginScreen({ onSubmitHandler, navigation }) {
                 style={styles.btn}
                 onPress={() => onSubmitHandler(name, password)}
               >
-                <Text style={styles.btnText}>Sign In</Text>
+                <Text style={styles.btnText}>Sign Up</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={() => navigation.navigate("login")}
+              >
+                <Text>Log In</Text>
               </TouchableOpacity>
             </KeyboardAvoidingView>
           </View>
@@ -119,7 +121,6 @@ export default function LoginScreen({ onSubmitHandler, navigation }) {
 
 const styles = StyleSheet.create({
   title: {
-    textAlign: "center",
     marginBottom: 20,
     fontSize: 20,
     color: `#f0f8ff`,
@@ -157,5 +158,10 @@ const styles = StyleSheet.create({
     color: `#f0f8ff`,
     fontSize: 18,
     fontFamily: "Roboto-Regular",
+  },
+  bg: {
+    flex: 1,
+    resizeMode: "cover",
+    alignItems: "center",
   },
 });
