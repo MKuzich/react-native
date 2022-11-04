@@ -29,8 +29,8 @@ export default function RegistrationScreen({ navigation }) {
     async function prepare() {
       try {
         await Font.loadAsync({
-          "Roboto-Regular": require("../assets/fonts/Roboto/Roboto-Regular.ttf"),
-          "Roboto-Bold": require("../assets/fonts/Roboto/Roboto-Bold.ttf"),
+          "Roboto-Regular": require("../../assets/fonts/Roboto/Roboto-Regular.ttf"),
+          "Roboto-Bold": require("../../assets/fonts/Roboto/Roboto-Bold.ttf"),
         });
       } catch (e) {
         console.warn(e);
@@ -110,6 +110,13 @@ export default function RegistrationScreen({ navigation }) {
                 onPress={() => navigation.navigate("login")}
               >
                 <Text>Log In</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                activeOpacity={0.8}
+                style={styles.link}
+                onPress={() => navigation.navigate("login")}
+              >
+                <Text>I already have an account</Text>
               </TouchableOpacity>
             </KeyboardAvoidingView>
           </View>

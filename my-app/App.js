@@ -9,6 +9,7 @@ import Home from "./Screens/Home";
 import { LogBox } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import React from "react";
 
 const MainStack = createStackNavigator();
 

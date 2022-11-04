@@ -29,8 +29,8 @@ export default function LoginScreen({ navigation }) {
     async function prepare() {
       try {
         await Font.loadAsync({
-          "Roboto-Regular": require("../assets/fonts/Roboto/Roboto-Regular.ttf"),
-          "Roboto-Bold": require("../assets/fonts/Roboto/Roboto-Bold.ttf"),
+          "Roboto-Regular": require("../../assets/fonts/Roboto/Roboto-Regular.ttf"),
+          "Roboto-Bold": require("../../assets/fonts/Roboto/Roboto-Bold.ttf"),
         });
       } catch (e) {
         console.warn(e);
@@ -107,6 +107,13 @@ export default function LoginScreen({ navigation }) {
               >
                 <Text style={styles.btnText}>Sign In</Text>
               </TouchableOpacity>
+              <TouchableOpacity
+                activeOpacity={0.8}
+                style={styles.link}
+                onPress={() => navigation.navigate("registration")}
+              >
+                <Text>I have not an account yet</Text>
+              </TouchableOpacity>
             </KeyboardAvoidingView>
           </View>
         </ImageBackground>
@@ -161,4 +168,5 @@ const styles = StyleSheet.create({
     resizeMode: "cover",
     alignItems: "center",
   },
+  link: {},
 });
