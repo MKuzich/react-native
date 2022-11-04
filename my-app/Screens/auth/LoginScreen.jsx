@@ -60,6 +60,7 @@ export default function LoginScreen({ navigation }) {
   }, []);
 
   const onSubmitHandler = (name, password) => {
+    navigation.navigate("home");
     console.log(`Name: ${name}, password: ${password}`);
     Keyboard.dismiss();
   };
@@ -112,7 +113,15 @@ export default function LoginScreen({ navigation }) {
                 style={styles.link}
                 onPress={() => navigation.navigate("registration")}
               >
-                <Text>I have not an account yet</Text>
+                <Text
+                  style={{
+                    ...styles.btnText,
+                    textAlign: "center",
+                    marginTop: 20,
+                  }}
+                >
+                  I have not an account yet
+                </Text>
               </TouchableOpacity>
             </KeyboardAvoidingView>
           </View>

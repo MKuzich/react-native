@@ -60,6 +60,7 @@ export default function RegistrationScreen({ navigation }) {
   }, []);
 
   const onSubmitHandler = (name, password) => {
+    navigation.navigate("home");
     console.log(`Name: ${name}, password: ${password}`);
     Keyboard.dismiss();
   };
@@ -116,7 +117,15 @@ export default function RegistrationScreen({ navigation }) {
                 style={styles.link}
                 onPress={() => navigation.navigate("login")}
               >
-                <Text>I already have an account</Text>
+                <Text
+                  style={{
+                    ...styles.btnText,
+                    textAlign: "center",
+                    marginTop: 20,
+                  }}
+                >
+                  I already have an account
+                </Text>
               </TouchableOpacity>
             </KeyboardAvoidingView>
           </View>
